@@ -1,0 +1,62 @@
+{% if page.name == 'index.html' %}
+  {% assign page = site.posts.first %}
+  {% assign content = page.content %}
+{% endif %}
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>{{ page.title }} | A Dev on the Road</title>
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/bootstrap-theme.css" />
+    <link rel="stylesheet" href="/css/post.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="page-header">A Dev on the Road</h1>
+
+      <div class="row">
+        <div class="col-md-2">
+          <ul class="list-unstyled">
+            {% for post in site.posts %}
+            <li>
+              <a href="{{ post.url }}">{{ post.date | date: "%d/%m" }} - {{ post.title }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="col-md-10">
+          <article>
+
+            <header>
+              <h2>{{ page.title }}</h2>
+              <span class="travel-info">
+                Parti depuis {{ page.left_since }} jour(s)
+              </span>
+              <span class="separator">|</span>
+              <span class="travel-info">
+                {{ page.km | minus: site.km_at_start }} km
+              </span>
+              <span class="separator">|</span>
+              <span class="travel-info">
+                {{ page.location }}
+              </span>
+            </header>
+            <section>
+              <img src="{{ site.url }}/assets/{{ page.title | slugify }}.jpg" alt="{{ page.title }}" class="img-responsive" />
+
+              {{ content }}
+            </section>
+            <footer>
+              <p>
+                <small><i><a href="http://github.com">Vous avez trouvé une fôte d'orthographe ?</a></i></small>
+              </p>
+            </footer>
+          </article>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
